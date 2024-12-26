@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <div class = "header">
+        <h1>
+            <i>Project 3: Groovifier</i>
+        </h1>
+    </div>
+
+    <!-- Load Google font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css?family=Jost"
+        rel="stylesheet"
+    />
+
+    <!-- Load the JavaScript function "main" stored in the loaded file below -->
+    <head>
+
+        <script type="importmap">
+            {
+              "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.171.0/build/three.module.js",
+                "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.171.0/examples/jsm/"
+              }
+            }
+          </script>
+
+
+        <!-- Loading stylesheet -->
+        <!-- Below is for local fonts -->
+        <link rel="stylesheet" type="text/css" href="style.css">
+
+        <!-- Load utility files -->
+        <script type="module" src="lib/my-utils/load-shader.js"></script>
+        <script type="module" src = "lib/my-utils/app-helpers.js"></script>
+        <script type="module" src="lib/my-utils/process-image-palette.js"></script>
+
+        <!-- ESSENTIA Processing -->
+        <script type="module" src="./lib/essentia-wasm.es.js"></script>
+        <script type="module" src="./lib/essentia.js-core.es.js"></script>
+        <script type="module" src="lib/my-utils/process-audio.js"></script>
+
+        <!-- Finally, load in the main file -->
+        <script type="module" src="src/app.js"></script>
+    </head>
+
+    <body>
+        <!-- Setup the Canvases -->
+        <div class = "container">      
+            <div class = "viewport">
+                <canvas id="webgl" width="1280" height="720">
+                    <div>
+                        If the app pauses upon inputting a song, it is likely processing it.
+                        Otherwise, please use a browser that supports "canvas"
+                    </div>
+                </canvas>
+
+                <!-- https://developer.mozilla.org/en-US/docs/Web/API/AnalyserNode/getByteFrequencyData -->
+                <canvas id="histogram" width="1280" height="200">
+                    <div>
+                        This is for frequencies of the song.
+                    </div>
+                </canvas>
+            </div>
+
+            <!-- END OF CANVAS -->
+
+            <div class="controls">
+                <b>Table of Controls</b>
+
+                <fieldset>
+                    <legend>Ditherize</legend>
+                    <input type="checkbox" id="ditherize" name="Ditherize" 
+                    />
+                    <label for="ditherize">Enable Dithering</label>
+                </fieldset>
+
+                <!-- Shader Modifier: image file input -->
+                <fieldset>
+                    <legend>Color Palette</legend>
+
+                    <!-- File input option in its own row -->
+                    <label>
+                        <input type="file" id="paletteFile" accept="image/*"/>
+                    </label>
+
+                    <label>
+                        <p>You can input a 16x1 image file for the dithering/quantization color palette.</p>
+                    </label>
+
+                </fieldset>
+
+
+                <!-- Camera Modifier: audio input -->
+                <fieldset>
+                    <legend>Groovifier</legend>
+                        <label>
+                            <input type="file" id="audioFile" accept="audio/*" />
+                        </label>
+
+                        <!-- Audio playback controls in its own row -->
+                        <label>
+                            <audio id="audioControl" controls></audio>
+                        </label>
+
+                        <br>
+
+                        <label id="audioProcessing"> 
+                            <p>It may take <i>up to</i> 30 seconds for the audio file to finish processing.</p>
+                            <p>After the audio file is done processing, the song and visualizer will automatically start.</p>
+                            <p>Please do not click play anytime before the audio file is done processing.</p>
+                        <label>
+                </fieldset>
+
+                <!-- WHALE MODIFIER -->
+                <fieldset>
+                    <legend>Whale Modifiers</legend>
+                    <!-- Add slider to scale the fins -->
+                    <input type="range" id="scaleWhale" min="0.10" max="10.0" step=".1" />
+                    <label id="whaleSliderLabel" for="scaleWhale">Whale Scale = 1.0</label>
+
+                    <!-- Add slider to scale the whale -->
+                    <input type="range" id="scaleFin" min="1.00" max="10.0" step=".1" />
+                    <label id="finSliderLabel" for="scaleFin">Fin Scale = 1.0</label>
+
+                    <!-- Slider for rotation x -->
+                    <input type="range" id="rotateX" min="0.01" max="1" step=".01" />
+                    <label id="xSliderLabel" for="rotateX">x - Whale Rotation Axis = 0.0</label>
+
+                    <!-- Slider for rotation y -->
+                    <input type="range" id="rotateY" min="0.01" max="1" step=".01" />
+                    <label id="ySliderLabel" for="rotateY">y - Whale Rotation Axis = 1.0</label>
+
+                    <!-- Slider for rotation z -->
+                    <input type="range" id="rotateZ" min="0.01" max="1" step=".01" />
+                    <label id="zSliderLabel" for="rotateZ">z - Whale Rotation Axis = 0.0</label>        
+
+                    <!-- Slider to adjust speed -->
+                    <input type="range" id="rotSpeed" min="0.001" max="0.5" step=".001" />
+                    <label id="rotSliderLabel" for="rotSpeed">Scene Rot Speed (rad) = 0.01 </label>
+                </fieldset>
+        
+                <!-- CAMERA MODIFIER -->
+                <fieldset>
+                    <legend>Camera Modifiers</legend>
+
+                    <p>Use the mouse + left click to rotate around the origin.</p>
+                    <p>Use the scrollwheel to zoom in and out.</p>
+
+                </fieldset>
+            </div>
+            <!-- END OF CONTENT CLASS -->
+        </div>
+    </body>
+</html>
