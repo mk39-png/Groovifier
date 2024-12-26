@@ -4,7 +4,7 @@ This project is the public repository version of my final project for my Compute
 
 <h2>How to run</h2>
 <ol>
-  <li>You can download the source code in VS Code, and then run "python -m http.server" to run the project locally</li>
+  <li>You can download the source code and then run the downloaded folder in VS Code, and then run "python -m http.server" to run the project locally</li>
   <li>Else, the project is also available at this link: https://mk39-png.github.io/Groovifier/ </li>
 </ol>
 
